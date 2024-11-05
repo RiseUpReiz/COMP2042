@@ -1,3 +1,10 @@
+
+# COMP2042 COURSEWORK :trollface:
+
+## Author :raising_hand_man:
+<ins>**Khoo Chung Ling 20208524**</ins>
+
+## Folder Structure :open_file_folder:
 • GitHub: Provide the link to your GitHub repository.
 
 • Compilation Instructions: Provide a clear, step-by-step guide on how to compile the
