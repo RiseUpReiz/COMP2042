@@ -17,8 +17,10 @@ public class BossProjectile extends Projectile {
 	}
 	
 	@Override
-	public void updateActor() {
+	public void updateActor(){
 		updatePosition();
+		if (outOfScreen()) {
+			this.destroy();
+		}
 	}
-	
 }
