@@ -2,6 +2,9 @@ package com.example.demo.levels;
 
 import com.example.demo.ActiveActorDestructible;
 import com.example.demo.EnemyPlane;
+import com.example.demo.controller.Controller;
+import javafx.stage.Stage;
+
 
 public class LevelOne extends LevelParent {
 	
@@ -12,8 +15,8 @@ public class LevelOne extends LevelParent {
 	private static final double ENEMY_SPAWN_PROBABILITY = .20;
 	private static final int PLAYER_INITIAL_HEALTH = 5;
 
-	public LevelOne(double screenHeight, double screenWidth) {
-		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
+	public LevelOne(double screenHeight, double screenWidth, Controller controller, Stage stage) {
+		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH, controller, stage);
 	}
 
 	@Override

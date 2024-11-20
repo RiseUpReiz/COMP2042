@@ -6,12 +6,14 @@ import java.util.stream.Collectors;
 import com.example.demo.ActiveActorDestructible;
 import com.example.demo.FighterPlane;
 import com.example.demo.UserPlane;
+import com.example.demo.controller.Controller;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public abstract class LevelParent extends Observable {
@@ -35,9 +37,12 @@ public abstract class LevelParent extends Observable {
 	private final List<ActiveActorDestructible> enemyProjectiles;
 	
 	private int currentNumberOfEnemies;
-	private LevelView levelView;
+	private final LevelView levelView;
+	private final Stage stage;
+	private Controller controller;
 
-	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+
+	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth, Controller controller, Stage stage) {
 		this.root = new Group();
 		this.scene = new Scene(root, screenWidth, screenHeight);
 		this.timeline = new Timeline();
@@ -54,7 +59,10 @@ public abstract class LevelParent extends Observable {
 		this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
 		this.levelView = instantiateLevelView();
 		this.currentNumberOfEnemies = 0;
-		initializeTimeline();
+		this.stage = stage;
+		this.controller = controller;
+
+        initializeTimeline();
 		friendlyUnits.add(user);
 	}
 
@@ -77,6 +85,11 @@ public abstract class LevelParent extends Observable {
 		background.requestFocus();
 		timeline.play();
 	}
+
+//	public void showInstructions() {
+//		Instructions instructions = new Instructions(stage);
+//		instructions.show();
+//	}
 
 	public void goToNextLevel(String levelName) {
 		timeline.stop();
@@ -218,7 +231,9 @@ public abstract class LevelParent extends Observable {
 
 	protected void loseGame() {
 		timeline.stop();
-		levelView.showGameOverImage();
+		// levelView.showGameOverImage();
+		GameOverMenu gameOverMenu = new GameOverMenu(stage, controller);
+		gameOverMenu.show();
 	}
 
 	protected UserPlane getUser() {
