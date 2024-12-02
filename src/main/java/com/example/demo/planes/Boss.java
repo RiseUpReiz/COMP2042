@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.example.demo.planes;
 
-import com.example.demo.levels.LevelViewLevelTwo;
+import com.example.demo.ActiveActorDestructible;
+import com.example.demo.projectiles.BossProjectile;
+import com.example.demo.levels.LevelViewBoss;
 
 import java.util.*;
 
@@ -9,7 +11,7 @@ public class Boss extends FighterPlane {
 	private static final String IMAGE_NAME = "bossplane.png";
 	private static final double INITIAL_X_POSITION = 1000.0;
 	private static final double INITIAL_Y_POSITION = 400;
-	private static final double PROJECTILE_Y_POSITION_OFFSET = 75.0;
+	private static final double PROJECTILE_Y_POSITION_OFFSET = 40.0;
 	private static final double BOSS_FIRE_RATE = .01; //intial rate .04
 	private static final double BOSS_SHIELD_PROBABILITY = .002; //intial prob .002
 	private static final int IMAGE_HEIGHT = 70;
@@ -18,17 +20,18 @@ public class Boss extends FighterPlane {
 	private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
 	private static final int ZERO = 0;
 	private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
-	private static final int Y_POSITION_UPPER_BOUND = -10;
-	private static final int Y_POSITION_LOWER_BOUND = 650;
+	private static final int Y_POSITION_UPPER_BOUND = 30;
+	private static final int Y_POSITION_LOWER_BOUND = 625;
+	private static final int SHIELD_X_OFFSET = -35;
 	private static final int MAX_FRAMES_WITH_SHIELD = 500;
 	private final List<Integer> movePattern;
 	private boolean isShielded;
 	private int consecutiveMovesInSameDirection;
 	private int indexOfCurrentMove;
 	private int framesWithShieldActivated;
-	private final LevelViewLevelTwo levelView;
+	private final LevelViewBoss levelView;
 
-	public Boss(LevelViewLevelTwo levelView) {
+	public Boss(LevelViewBoss levelView) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
 		movePattern = new ArrayList<>();
 		consecutiveMovesInSameDirection = 0;
@@ -90,7 +93,7 @@ public class Boss extends FighterPlane {
 
 	private void updateShieldPosition(){
 		levelView.updateShieldPosition(
-				getLayoutX() + getTranslateX() -35,
+				getLayoutX() + getTranslateX() + SHIELD_X_OFFSET,
 				getLayoutY() + getTranslateY());
 	}
 
