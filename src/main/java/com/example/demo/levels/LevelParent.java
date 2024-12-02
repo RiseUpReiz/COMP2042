@@ -4,9 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.example.demo.ActiveActorDestructible;
-import com.example.demo.FighterPlane;
-import com.example.demo.UserPlane;
+import com.example.demo.planes.FighterPlane;
+import com.example.demo.planes.UserPlane;
 import com.example.demo.controller.Controller;
+import com.example.demo.controller.HighScoreManager;
+import com.example.demo.controller.MusicManager;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -22,11 +24,11 @@ public abstract class LevelParent extends Observable {
 	private static final int MILLISECOND_DELAY = 50;
 	private final double screenHeight;
 	private final double screenWidth;
-	private final double enemyMaximumYPosition;
+
 
 
 	private final Group root;
-	private final Timeline timeline;
+	public final Timeline timeline;
 	private final UserPlane user;
 	private final Scene scene;
 	private final ImageView background;
@@ -37,9 +39,13 @@ public abstract class LevelParent extends Observable {
 	private final List<ActiveActorDestructible> enemyProjectiles;
 	
 	private int currentNumberOfEnemies;
-	private final LevelView levelView;
-	private final Stage stage;
+	public final LevelView levelView;
+    public boolean isPause = false;
+
+    public final Stage stage;
 	private Controller controller;
+	private HighScoreManager highScoreManager;
+
 
 
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth, Controller controller, Stage stage) {
@@ -56,7 +62,6 @@ public abstract class LevelParent extends Observable {
 		this.background = new ImageView(new Image(getClass().getResource(backgroundImageName).toExternalForm()));
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
-		this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
 		this.levelView = instantiateLevelView();
 		this.currentNumberOfEnemies = 0;
 		this.stage = stage;
@@ -86,18 +91,13 @@ public abstract class LevelParent extends Observable {
 		timeline.play();
 	}
 
-//	public void showInstructions() {
-//		Instructions instructions = new Instructions(stage);
-//		instructions.show();
-//	}
-
 	public void goToNextLevel(String levelName) {
 		timeline.stop();
 		setChanged();
 		notifyObservers(levelName);
 	}
 
-	private void updateScene() {
+	public void updateScene() {
 		spawnEnemyUnits();
 		updateActors();
 		generateEnemyFire();
@@ -128,6 +128,7 @@ public abstract class LevelParent extends Observable {
 				if (kc == KeyCode.UP) user.moveUp();
 				if (kc == KeyCode.DOWN) user.moveDown();
 				if (kc == KeyCode.SPACE) fireProjectile();
+				if (kc == KeyCode.ESCAPE) pauseLevel();
 			}
 		});
 		background.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -139,7 +140,13 @@ public abstract class LevelParent extends Observable {
 		root.getChildren().add(background);
 	}
 
+	private boolean allowFiring(){
+		return !isPause;
+	}
+
+
 	private void fireProjectile() {
+		if (!allowFiring()) return;
 		ActiveActorDestructible projectile = user.fireProjectile();
 		root.getChildren().add(projectile);
 		userProjectiles.add(projectile);
@@ -224,16 +231,36 @@ public abstract class LevelParent extends Observable {
 		return Math.abs(enemy.getTranslateX()) > screenWidth;
 	}
 
-	protected void winGame() {
+
+	public void winGame() {
+		if (!allowFiring()) return;
 		timeline.stop();
-		levelView.showWinImage();
+		MusicManager.getInstance().stopBackgroundMusic();
+		WinMenu winMenu = new WinMenu(stage);
+		winMenu.show();
 	}
 
 	protected void loseGame() {
+		if (!allowFiring()) return;
 		timeline.stop();
-		// levelView.showGameOverImage();
-		GameOverMenu gameOverMenu = new GameOverMenu(stage, controller);
+		MusicManager.getInstance().stopBackgroundMusic();
+		GameOverMenu gameOverMenu = new GameOverMenu(stage, highScoreManager);
 		gameOverMenu.show();
+	}
+
+
+    private void pauseLevel() {
+		if (!isPause) {
+			isPause = true;
+			timeline.pause();
+			MusicManager.getInstance().setPauseState(true); // Pause background music
+			levelView.showPauseMenu(); // Show the pause menu
+		} else {
+			isPause = false;
+			timeline.play();
+			MusicManager.getInstance().setPauseState(false); // Resume background music
+			levelView.hidePauseMenu(); // Hide the pause menu
+		}
 	}
 
 	protected UserPlane getUser() {
@@ -253,15 +280,7 @@ public abstract class LevelParent extends Observable {
 		root.getChildren().add(enemy);
 	}
 
-	protected double getEnemyMaximumYPosition() {
-		return enemyMaximumYPosition;
-	}
-
-	protected double getScreenWidth() {
-		return screenWidth;
-	}
-
-	protected boolean userIsDestroyed() {
+	public boolean userIsDestroyed() {
 		return user.isDestroyed();
 	}
 
