@@ -1,7 +1,6 @@
 package com.example.demo.levels;
 
 import com.example.demo.controller.Controller;
-import com.example.demo.controller.Main;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,11 +16,14 @@ import javafx.stage.Stage;
 
 public class MainMenu {
 
+    private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/start-background.png";
+
     private final Stage stage;
-    private Controller controller;
+    private final Controller controller;
 
     public MainMenu(Stage stage) {
         this.stage = stage;
+        this.controller = new Controller(stage);
     }
 
     public void show() {
@@ -40,6 +42,9 @@ public class MainMenu {
         Button startButton = new Button("Start Game");
         startButton.setOnAction(e -> startGame());
 
+        Button startEndlessModeButton = new Button("Endless Mode");
+        startEndlessModeButton.setOnAction(e -> controller.startEndlessMode());
+
         Button instructionsButton = new Button("Instructions");
         instructionsButton.setOnAction(e -> showInstructions());
 
@@ -47,13 +52,14 @@ public class MainMenu {
         exitButton.setOnAction(e -> stage.close());
 
         // Add all elements to the layout
-        menuLayout.getChildren().addAll(title, startButton, instructionsButton, exitButton);
+        menuLayout.getChildren().addAll(title, startButton, startEndlessModeButton, instructionsButton, exitButton);
 
-        // Set the background image
-        menuLayout.setBackground(new Background(new BackgroundImage(new Image(getClass().getResource
-                ("/com/example/demo/images/start-background.png").toExternalForm()),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));
+        // Set the background image using the constant
+        menuLayout.setBackground(new Background(new BackgroundImage(
+                new Image(getClass().getResource(BACKGROUND_IMAGE_NAME).toExternalForm()),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT
+        )));
 
         // Create and set the scene
         Scene mainMenuScene = new Scene(menuLayout, stage.getWidth(), stage.getHeight());
@@ -74,5 +80,4 @@ public class MainMenu {
             e.printStackTrace();
         }
     }
-
 }
