@@ -1,17 +1,17 @@
 package com.example.demo.levels;
 
-import com.example.demo.Boss;
+import com.example.demo.planes.Boss;
 import com.example.demo.controller.Controller;
 import javafx.stage.Stage;
 
-public class LevelTwo extends LevelParent {
+public class LevelBoss extends LevelParent {
 
-	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background2.jpg";
+	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background4.jfif";
 	private static final int PLAYER_INITIAL_HEALTH = 5;
-	private final Boss boss;
-	private LevelViewLevelTwo levelView;
+	public final Boss boss;
+	private LevelViewBoss levelView;
 
-	public LevelTwo(double screenHeight, double screenWidth, Controller controller, Stage stage) {
+	public LevelBoss(double screenHeight, double screenWidth, Controller controller, Stage stage) {
 		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH, controller, stage);
 		boss = new Boss(this.levelView);
 	}
@@ -40,7 +40,7 @@ public class LevelTwo extends LevelParent {
 
 	@Override
 	protected LevelView instantiateLevelView() {
-		this.levelView = new LevelViewLevelTwo(getRoot(), PLAYER_INITIAL_HEALTH);
+		this.levelView = new LevelViewBoss(getRoot(), PLAYER_INITIAL_HEALTH);
 		return this.levelView;
 	}
 
