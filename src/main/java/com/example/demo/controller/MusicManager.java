@@ -3,14 +3,25 @@ package com.example.demo.controller;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * Singleton class that manages background music and sound effects for the game.
+ */
 public class MusicManager {
     private static MusicManager instance;
     private MediaPlayer backgroundMusicPlayer;
     private MediaPlayer soundEffectPlayer; // Instance variable for sound effects
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private MusicManager() {
     }
 
+    /**
+     * Returns the singleton instance of the MusicManager.
+     *
+     * @return the singleton instance of the MusicManager
+     */
     public static MusicManager getInstance() {
         if (instance == null) {
             instance = new MusicManager();
@@ -18,7 +29,11 @@ public class MusicManager {
         return instance;
     }
 
-    // Play background music
+    /**
+     * Plays background music from the specified file path.
+     *
+     * @param musicFilePath the file path of the background music
+     */
     public void playBackgroundMusic(String musicFilePath) {
         Media media = new Media(getClass().getResource(musicFilePath).toExternalForm());
         backgroundMusicPlayer = new MediaPlayer(media);
@@ -27,13 +42,20 @@ public class MusicManager {
         backgroundMusicPlayer.play();
     }
 
+    /**
+     * Stops the background music if it is playing.
+     */
     public void stopBackgroundMusic() {
         if (backgroundMusicPlayer != null) {
             backgroundMusicPlayer.stop();
         }
     }
 
-    // Manage background music state based on isPause
+    /**
+     * Sets the pause state of the background music.
+     *
+     * @param isPause true to pause the music, false to play it
+     */
     public void setPauseState(boolean isPause) {
         if (backgroundMusicPlayer != null) {
             if (isPause) {
@@ -44,7 +66,11 @@ public class MusicManager {
         }
     }
 
-    // Play a sound effect (non-looping)
+    /**
+     * Plays a sound effect from the specified file path.
+     *
+     * @param soundFilePath the file path of the sound effect
+     */
     public void playSoundEffect(String soundFilePath) {
         if (soundEffectPlayer != null) {
             soundEffectPlayer.stop(); // Stop any currently playing sound effect

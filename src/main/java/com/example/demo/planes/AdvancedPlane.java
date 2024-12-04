@@ -1,9 +1,11 @@
 package com.example.demo.planes;
 
-
 import com.example.demo.ActiveActorDestructible;
 import com.example.demo.projectiles.EnemyProjectile;
 
+/**
+ * Represents an advanced fighter plane with specific attributes and behaviors.
+ */
 public class AdvancedPlane extends FighterPlane {
 
     private static final String IMAGE_NAME = "advancedplane.png";
@@ -12,17 +14,31 @@ public class AdvancedPlane extends FighterPlane {
     private static final double PROJECTILE_X_POSITION_OFFSET = -100.0;
     private static final double PROJECTILE_Y_POSITION_OFFSET = 50.0;
     private static final int INITIAL_HEALTH = 3;
-    public static double FIRE_RATE = .03;
+    public static double FIRE_RATE = .01;
 
+    /**
+     * Constructs an AdvancedPlane with the specified initial position.
+     *
+     * @param initialXPos the initial X position of the plane
+     * @param initialYPos the initial Y position of the plane
+     */
     public AdvancedPlane(double initialXPos, double initialYPos) {
         super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos, INITIAL_HEALTH);
     }
 
+    /**
+     * Updates the position of the plane by moving it horizontally.
+     */
     @Override
     public void updatePosition() {
         moveHorizontally(HORIZONTAL_VELOCITY);
     }
 
+    /**
+     * Fires a projectile from the plane if the random condition based on FIRE_RATE is met.
+     *
+     * @return a new EnemyProjectile if fired, otherwise null
+     */
     @Override
     public ActiveActorDestructible fireProjectile() {
         if (Math.random() < FIRE_RATE) {
@@ -33,6 +49,9 @@ public class AdvancedPlane extends FighterPlane {
         return null;
     }
 
+    /**
+     * Updates the actor by updating its position.
+     */
     @Override
     public void updateActor(){
         updatePosition();

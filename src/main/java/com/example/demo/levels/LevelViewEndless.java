@@ -1,31 +1,42 @@
 package com.example.demo.levels;
 
-import com.example.demo.controller.Main;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
+/**
+ * Represents the view for the endless level in the game.
+ * This class handles the display and management of the timer specific to the endless level.
+ */
 public class LevelViewEndless extends LevelView {
+    private Text timerText;
 
-    private static final double TIMER_LABEL_X_POSITION = (Main.SCREEN_WIDTH / 2.0) - 50;
-    private static final double TIMER_LABEL_Y_POSITION = 25;
-
-    private final Label timerLabel;
-
-    public LevelViewEndless(Group root, int heartsToDisplay) {
-        super(root, heartsToDisplay);
-
-        // Timer Label
-        this.timerLabel = new Label("Time: 0s");
-        this.timerLabel.setFont(new Font("Arial", 25));
-        this.timerLabel.setTextFill(Color.YELLOW);
-        this.timerLabel.setLayoutX(TIMER_LABEL_X_POSITION);
-        this.timerLabel.setLayoutY(TIMER_LABEL_Y_POSITION);
-        root.getChildren().add(timerLabel);
+    /**
+     * Constructs a LevelViewEndless instance.
+     *
+     * @param root the root group for the scene
+     * @param playerInitialHealth the initial health of the player
+     */
+    public LevelViewEndless(Group root, int playerInitialHealth) {
+        super(root, playerInitialHealth);
+        initializeTimer(root); // Pass root for proper initialization
     }
 
+    /**
+     * Initializes the timer display.
+     *
+     * @param root the root group for the scene
+     */
+    private void initializeTimer(Group root) {
+        timerText = new Text(10, 20, "Time: 0");
+        root.getChildren().add(timerText); // Use provided root group
+    }
+
+    /**
+     * Updates the timer display with the elapsed time.
+     *
+     * @param elapsedTime the elapsed time to display
+     */
     public void updateTimer(int elapsedTime) {
-        timerLabel.setText("Time: " + elapsedTime + "s");
+        timerText.setText("Time: " + elapsedTime);
     }
 }
