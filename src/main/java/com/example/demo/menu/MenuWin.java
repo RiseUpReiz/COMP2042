@@ -1,4 +1,4 @@
-package com.example.demo.levels;
+package com.example.demo.menu;
 
 import com.example.demo.controller.MusicManager;
 import javafx.geometry.Pos;
@@ -14,16 +14,27 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class WinMenu {
+/**
+ * The WinMenu class represents the victory screen displayed when the player wins the game.
+ */
+public class MenuWin {
 
     private final Stage stage;
     private static final String BGM_FILE_PATH = "/com/example/demo/audios/bgm.mp3";
     private static final String VICTORY_MUSIC = "/com/example/demo/audios/Victory.mp3";
 
-    public WinMenu(Stage stage) {
+    /**
+     * Constructs a WinMenu with the specified stage.
+     *
+     * @param stage the stage to display the win menu on
+     */
+    public MenuWin(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Displays the win menu, including the victory message, background image, and buttons.
+     */
     public void show() {
         // Stop current music and play victory music
         MusicManager musicManager = MusicManager.getInstance();
@@ -67,6 +78,9 @@ public class WinMenu {
         stage.show();
     }
 
+    /**
+     * Navigates back to the main menu and resumes background music.
+     */
     private void goToMainMenu() {
         MusicManager musicManager = MusicManager.getInstance();
         musicManager.stopBackgroundMusic();

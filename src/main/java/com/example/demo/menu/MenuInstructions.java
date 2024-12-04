@@ -1,7 +1,9 @@
-package com.example.demo.levels;
+package com.example.demo.menu;
 
 import com.example.demo.controller.Controller;
 import com.example.demo.controller.Main;
+import com.example.demo.levels.LevelParent;
+import com.example.demo.levels.LevelView;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
@@ -13,23 +15,45 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
-public class Instructions extends LevelParent {
+/**
+ * Represents the instructions screen in the game.
+ * This class handles the display of game instructions and navigation back to the main menu.
+ */
+public class MenuInstructions extends LevelParent {
 
     private final Stage stage;
+    private final Controller controller;
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/start-background.jfif";
     double screenWidth = Main.getScreenWidth();
     double screenHeight = Main.getScreenHeight();
 
-    public Instructions(double screenHeight, double screenWidth, Controller controller, Stage stage) {
+    /**
+     * Constructs an Instructions instance.
+     *
+     * @param screenHeight the height of the screen
+     * @param screenWidth the width of the screen
+     * @param controller the game controller
+     * @param stage the stage for the game
+     */
+    public MenuInstructions(double screenHeight, double screenWidth, Controller controller, Stage stage) {
         super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, 0, controller, stage);
         this.stage = stage;
+        this.controller = controller;
     }
 
+    /**
+     * Instantiates the level view for the instructions screen.
+     *
+     * @return the level view for the instructions screen
+     */
     @Override
     protected LevelView instantiateLevelView() {
         return new LevelView(getRoot(), 0);
     }
 
+    /**
+     * Displays the instructions screen.
+     */
     public void show() {
         Scene instructionsScene = initializeScene();
         stage.setScene(instructionsScene);
@@ -44,7 +68,7 @@ public class Instructions extends LevelParent {
 
         // Back button
         Button backButton = new Button("Back to Main Menu");
-        backButton.setOnAction(e -> goToMainMenu());
+        backButton.setOnAction(e -> controller.backToMainMenu());
 
         // VBox for text and button
         VBox vbox = new VBox(20);
@@ -75,18 +99,26 @@ public class Instructions extends LevelParent {
         stage.show();
     }
 
-    private void goToMainMenu() {
-        MainMenu mainMenu = new MainMenu(stage);
-        mainMenu.show(); // Go back to the main menu
-    }
+    /**
+     * Checks if the game is over.
+     * This method is not used in the instructions screen.
+     */
     @Override
     protected void checkIfGameOver() {
     }
 
+    /**
+     * Initializes the friendly units in the game.
+     * This method is not used in the instructions screen.
+     */
     @Override
     protected void initializeFriendlyUnits() {
     }
 
+    /**
+     * Spawns enemy units in the game.
+     * This method is not used in the instructions screen.
+     */
     @Override
     protected void spawnEnemyUnits() {
     }

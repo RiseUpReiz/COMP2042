@@ -1,4 +1,4 @@
-package com.example.demo.levels;
+package com.example.demo.menu;
 
 import com.example.demo.controller.Main;
 import javafx.geometry.Pos;
@@ -8,9 +8,17 @@ import javafx.scene.layout.StackPane;
 
 import java.util.Objects;
 
-public class PauseMenu extends StackPane {
+/**
+ * Represents the pause menu in the game.
+ * This class handles the display and visibility of the pause menu.
+ */
+public class MenuPause extends StackPane {
 
-    public PauseMenu() {
+    /**
+     * Constructs a PauseMenu instance.
+     * Initializes the pause menu with a translucent overlay and a pause image.
+     */
+    public MenuPause() {
         ImageView pauseImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/com/example/demo/images/pauseGame.png")).toExternalForm()));
         pauseImage.setPreserveRatio(true);
         pauseImage.setOpacity(0.7);
@@ -27,10 +35,16 @@ public class PauseMenu extends StackPane {
         this.setVisible(false);
     }
 
+    /**
+     * Shows the pause menu by setting its visibility to true.
+     */
     public void showPauseMenu() {
         this.setVisible(true); // Show pause menu
     }
 
+    /**
+     * Hides the pause menu by setting its visibility to false.
+     */
     public void hidePauseMenu() {
         this.setVisible(false); // Hide pause menu
     }

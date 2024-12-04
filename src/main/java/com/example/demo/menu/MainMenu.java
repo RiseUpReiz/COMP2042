@@ -1,4 +1,4 @@
-package com.example.demo.levels;
+package com.example.demo.menu;
 
 import com.example.demo.controller.Controller;
 import javafx.geometry.Pos;
@@ -14,6 +14,10 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 
+/**
+ * Represents the main menu of the game.
+ * This class handles the display and interaction of the main menu, including starting the game, showing instructions, and exiting the game.
+ */
 public class MainMenu {
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/start-background.png";
@@ -21,11 +25,19 @@ public class MainMenu {
     private final Stage stage;
     private final Controller controller;
 
+    /**
+     * Constructs a MainMenu instance.
+     *
+     * @param stage the stage for the main menu
+     */
     public MainMenu(Stage stage) {
         this.stage = stage;
         this.controller = new Controller(stage);
     }
 
+    /**
+     * Displays the main menu.
+     */
     public void show() {
         VBox menuLayout = new VBox(10);
         menuLayout.setAlignment(Pos.CENTER);
@@ -43,7 +55,7 @@ public class MainMenu {
         startButton.setOnAction(e -> startGame());
 
         Button startEndlessModeButton = new Button("Endless Mode");
-        startEndlessModeButton.setOnAction(e -> controller.startEndlessMode());
+        startEndlessModeButton.setOnAction(e -> controller.showEndlessInstructions());
 
         Button instructionsButton = new Button("Instructions");
         instructionsButton.setOnAction(e -> showInstructions());
@@ -67,11 +79,17 @@ public class MainMenu {
         stage.show();
     }
 
+    /**
+     * Displays the instructions screen.
+     */
     private void showInstructions() {
-        Instructions instructions = new Instructions(stage.getHeight(), stage.getWidth(), controller, stage);
+        MenuInstructions instructions = new MenuInstructions(stage.getHeight(), stage.getWidth(), controller, stage);
         instructions.show();
     }
 
+    /**
+     * Starts the game by launching the game controller.
+     */
     private void startGame() {
         try {
             Controller myController = new Controller(stage);

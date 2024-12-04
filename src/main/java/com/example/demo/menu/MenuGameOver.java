@@ -1,4 +1,4 @@
-package com.example.demo.levels;
+package com.example.demo.menu;
 
 import com.example.demo.controller.HighScoreManager;
 import com.example.demo.controller.Main;
@@ -22,18 +22,30 @@ import javafx.util.Duration;
 
 import java.util.Objects;
 
-public class GameOverMenu {
+/**
+ * Represents the game over menu displayed when the game ends.
+ */
+public class MenuGameOver {
 
     private final Stage stage;
     private final HighScoreManager highScoreManager;
     private static final String GAME_OVER_SOUND = "/com/example/demo/audios/gameOver.mp3";
     private static final String BACKGROUND_IMAGE_PATH = "/com/example/demo/images/gameover.jpeg";
 
-    public GameOverMenu(Stage stage, HighScoreManager highScoreManager) {
+    /**
+     * Constructs a GameOverMenu instance.
+     *
+     * @param stage the stage for the game
+     * @param highScoreManager the high score manager
+     */
+    public MenuGameOver(Stage stage, HighScoreManager highScoreManager) {
         this.stage = stage;
         this.highScoreManager = highScoreManager;
     }
 
+    /**
+     * Displays the game over menu.
+     */
     public void show() {
         MusicManager.getInstance().playSoundEffect(GAME_OVER_SOUND);
 
@@ -81,6 +93,11 @@ public class GameOverMenu {
         stage.show();
     }
 
+    /**
+     * Displays the game over menu for endless mode with the current score.
+     *
+     * @param currentScore the current score of the player
+     */
     public void endlessShow(int currentScore) {
         MusicManager.getInstance().playSoundEffect(GAME_OVER_SOUND);
 
@@ -123,6 +140,9 @@ public class GameOverMenu {
         stage.show();
     }
 
+    /**
+     * Navigates to the main menu.
+     */
     private void goToMainMenu() {
         MusicManager musicManager = MusicManager.getInstance();
         musicManager.stopBackgroundMusic();
