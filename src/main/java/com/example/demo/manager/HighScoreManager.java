@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.manager;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
