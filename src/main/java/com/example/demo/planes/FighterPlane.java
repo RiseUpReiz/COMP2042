@@ -1,6 +1,6 @@
 package com.example.demo.planes;
 
-import com.example.demo.ActiveActorDestructible;
+import com.example.demo.controller.ActiveActorDestructible;
 
 /**
  * Represents a fighter plane with specific attributes and behaviors.

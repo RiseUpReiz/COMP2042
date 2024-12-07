@@ -1,6 +1,6 @@
 package com.example.demo.levels;
 
-import com.example.demo.ActiveActorDestructible;
+import com.example.demo.controller.ActiveActorDestructible;
 import com.example.demo.controller.Main;
 import com.example.demo.planes.EnemyPlane;
 import com.example.demo.controller.Controller;

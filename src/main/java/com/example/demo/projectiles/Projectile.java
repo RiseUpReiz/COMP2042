@@ -1,6 +1,6 @@
 package com.example.demo.projectiles;
 
-import com.example.demo.ActiveActorDestructible;
+import com.example.demo.controller.ActiveActorDestructible;
 import com.example.demo.controller.Main;
 
 /**

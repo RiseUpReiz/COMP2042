@@ -12,7 +12,7 @@ import java.io.IOException;
  * Manages the high score for the game.
  */
 public class HighScoreManager {
-    private static final String HIGH_SCORE_FILE = "src/main/resources/highscore.txt";
+    private static final String HIGH_SCORE_FILE = "src/main/resources/com/example/demo/text/highscore.txt";
     private int highScore;
 
     /**
