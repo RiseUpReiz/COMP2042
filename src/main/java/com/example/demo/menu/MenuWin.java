@@ -1,6 +1,6 @@
 package com.example.demo.menu;
 
-import com.example.demo.controller.MusicManager;
+import com.example.demo.manager.MusicManager;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

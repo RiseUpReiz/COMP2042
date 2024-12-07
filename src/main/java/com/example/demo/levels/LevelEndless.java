@@ -1,9 +1,9 @@
 package com.example.demo.levels;
 
 import com.example.demo.controller.Controller;
-import com.example.demo.controller.HighScoreManager;
+import com.example.demo.manager.HighScoreManager;
 import com.example.demo.controller.Main;
-import com.example.demo.controller.MusicManager;
+import com.example.demo.manager.MusicManager;
 import com.example.demo.menu.MenuGameOver;
 import com.example.demo.planes.AdvancedPlane;
 import com.example.demo.planes.Boss;

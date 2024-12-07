@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.example.demo.controller.*;
+import com.example.demo.manager.HighScoreManager;
+import com.example.demo.manager.MusicManager;
+import com.example.demo.manager.PauseManager;
 import com.example.demo.menu.MenuGameOver;
 import com.example.demo.menu.MenuWin;
 import com.example.demo.planes.FighterPlane;

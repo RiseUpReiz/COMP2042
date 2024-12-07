@@ -1,8 +1,8 @@
 package com.example.demo.menu;
 
-import com.example.demo.controller.HighScoreManager;
+import com.example.demo.manager.HighScoreManager;
 import com.example.demo.controller.Main;
-import com.example.demo.controller.MusicManager;
+import com.example.demo.manager.MusicManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;

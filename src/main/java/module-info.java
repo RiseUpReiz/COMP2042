@@ -11,4 +11,6 @@ module com.example.demo {
     opens com.example.demo.projectiles to javafx.fxml;
     opens com.example.demo.menu to javafx.fxml;
     opens com.example.demo.controller to javafx.fxml;
+    exports com.example.demo.manager;
+    opens com.example.demo.manager to javafx.fxml;
 }
