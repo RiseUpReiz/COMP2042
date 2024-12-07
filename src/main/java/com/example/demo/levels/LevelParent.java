@@ -3,14 +3,11 @@ package com.example.demo.levels;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.example.demo.ActiveActorDestructible;
+import com.example.demo.controller.*;
 import com.example.demo.menu.MenuGameOver;
 import com.example.demo.menu.MenuWin;
 import com.example.demo.planes.FighterPlane;
 import com.example.demo.planes.UserPlane;
-import com.example.demo.controller.Controller;
-import com.example.demo.controller.HighScoreManager;
-import com.example.demo.controller.MusicManager;
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -42,8 +39,9 @@ public abstract class LevelParent extends Observable {
     private final List<ActiveActorDestructible> enemyProjectiles;
 
     private int currentNumberOfEnemies;
-    public final LevelView levelView;
+    public LevelView levelView;
     public boolean isPause = false;
+    private final PauseManager pauseManager;
 
     public final Stage stage;
     private HighScoreManager highScoreManager;
@@ -68,10 +66,13 @@ public abstract class LevelParent extends Observable {
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
 
+
         this.background = new ImageView(new Image(getClass().getResource(backgroundImageName).toExternalForm()));
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.levelView = instantiateLevelView();
+        this.levelView = new LevelView(root, 5);
+        this.pauseManager = new PauseManager(timeline, levelView);
         this.currentNumberOfEnemies = 0;
         this.stage = stage;
 
@@ -171,8 +172,8 @@ public abstract class LevelParent extends Observable {
                 KeyCode kc = e.getCode();
                 if (kc == KeyCode.UP) user.moveUp();
                 if (kc == KeyCode.DOWN) user.moveDown();
-                if (kc == KeyCode.SPACE) fireProjectile();
-                if (kc == KeyCode.ESCAPE) pauseLevel();
+                if (kc == KeyCode.SPACE && !pauseManager.isPause()) fireProjectile();
+                if (kc == KeyCode.ESCAPE) pauseManager.togglePause();
             }
         });
         background.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -189,7 +190,7 @@ public abstract class LevelParent extends Observable {
      *
      * @return true if firing is allowed, false otherwise
      */
-    private boolean allowFiring() {
+    public boolean allowFiring() {
         return !isPause;
     }
 
@@ -352,22 +353,6 @@ public abstract class LevelParent extends Observable {
         gameOverMenu.show();
     }
 
-    /**
-     * Pauses or resumes the level.
-     */
-    private void pauseLevel() {
-        if (!isPause) {
-            isPause = true;
-            timeline.pause();
-            MusicManager.getInstance().setPauseState(true); // Pause background music
-            levelView.showPauseMenu(); // Show the pause menu
-        } else {
-            isPause = false;
-            timeline.play();
-            MusicManager.getInstance().setPauseState(false); // Resume background music
-            levelView.hidePauseMenu(); // Hide the pause menu
-        }
-    }
 
     /**
      * Gets the user plane.

@@ -14,12 +14,13 @@ import java.util.Objects;
  */
 public class MenuPause extends StackPane {
 
+    private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/pauseGame.png";
     /**
      * Constructs a PauseMenu instance.
      * Initializes the pause menu with a translucent overlay and a pause image.
      */
     public MenuPause() {
-        ImageView pauseImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/com/example/demo/images/pauseGame.png")).toExternalForm()));
+        ImageView pauseImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResource(BACKGROUND_IMAGE_NAME)).toExternalForm()));
         pauseImage.setPreserveRatio(true);
         pauseImage.setOpacity(0.7);
 

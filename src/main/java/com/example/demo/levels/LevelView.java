@@ -75,10 +75,8 @@ public class LevelView {
     public void showPauseMenu() {
         if (!root.getChildren().contains(pauseMenu)) {
             root.getChildren().add(pauseMenu);
-        } else {
-            root.getChildren().remove(pauseMenu);
-            root.getChildren().add(pauseMenu);
         }
+        pauseMenu.toFront(); // Bring the pause menu to the front
         pauseMenu.showPauseMenu();
     }
 
