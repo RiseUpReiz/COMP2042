@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 /**
  * The ActiveActorDestructible class is an abstract class that represents an active actor

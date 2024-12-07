@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 /**
  * The Destructible interface defines the methods that must be implemented
