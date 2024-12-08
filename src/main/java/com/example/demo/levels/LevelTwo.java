@@ -18,7 +18,6 @@ public class LevelTwo extends LevelParent {
     private static final double Y_LOWER_BOUND = 650.0;
     private static final int TOTAL_ENEMIES = 6;
     private static final int KILLS_TO_ADVANCE = 10;
-    private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private static final int PLAYER_INITIAL_HEALTH = 5;
 
     /**
@@ -62,11 +61,9 @@ public class LevelTwo extends LevelParent {
     protected void spawnEnemyUnits() {
         int currentNumberOfEnemies = getCurrentNumberOfEnemies();
         for (int i = 0; i < TOTAL_ENEMIES - currentNumberOfEnemies; i++) {
-            if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
                 double newEnemyInitialYPosition = Y_UPPER_BOUND + Math.random() * (Y_LOWER_BOUND - Y_UPPER_BOUND);
                 ActiveActorDestructible newEnemy = new AdvancedPlane(Main.SCREEN_WIDTH, newEnemyInitialYPosition);
                 addEnemyUnit(newEnemy);
-            }
         }
     }
 

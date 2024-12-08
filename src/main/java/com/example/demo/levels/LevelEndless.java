@@ -20,7 +20,6 @@ public class LevelEndless extends LevelParent {
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private static final double Y_UPPER_BOUND = 70;
     private static final double Y_LOWER_BOUND = 650.0;
-    private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private static final int INITIAL_TOTAL_ENEMIES = 6;
     private static final int MAX_TOTAL_ENEMIES = 15;
     private final HighScoreManager highScoreManager;
@@ -75,19 +74,16 @@ public class LevelEndless extends LevelParent {
         int currentNumberOfEnemies = getCurrentNumberOfEnemies();
         if (currentNumberOfEnemies < increasingTotalEnemies && elapsedTime % 20 == 0) {
             for (int i = 0; i < increasingTotalEnemies - currentNumberOfEnemies; i++) {
-                if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
                     double newEnemyInitialYPosition = Y_UPPER_BOUND + Math.random() * (Y_LOWER_BOUND - Y_UPPER_BOUND);
                     addEnemyUnit(new EnemyPlane(Main.SCREEN_WIDTH, newEnemyInitialYPosition));
-                }
+
             }
         }
 
         if (currentNumberOfEnemies < increasingTotalEnemies && elapsedTime % 60 == 0) {
             for (int i = 0; i < increasingTotalEnemies - currentNumberOfEnemies; i++) {
-                if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
                     double newEnemyInitialYPosition = Y_UPPER_BOUND + Math.random() * (Y_LOWER_BOUND - Y_UPPER_BOUND);
                     addEnemyUnit(new AdvancedPlane(Main.SCREEN_WIDTH, newEnemyInitialYPosition));
-                }
             }
         }
 
