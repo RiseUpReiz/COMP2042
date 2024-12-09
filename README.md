@@ -1,11 +1,19 @@
 
-# COMP2042 COURSEWORK :trollface:
+# COMP2042 COURSEWORK 
 
-## Author :raising_hand_man:
-<ins>**Khoo Chung Ling 20208524**</ins>
+## Details :raising_hand_man:
+<ins>**Code by: Khoo Chung Ling 20208524**</ins>
+
+2024 coursework for module COMP2042 Developing Maintainable Software
 
 ## Folder Structure :open_file_folder:
-- [ ] GitHub: Provide the link to your GitHub repository.
+
+### GitHub Repository Link
+---
+[COMP2042 - Coursework Repository](https://github.com/RiseUpReiz/COMP2042)
+
+This repository contains the coursework project for the COMP2042 module, focused on maintaining and extending a Java-based plane fighter game.
+
 
 - [ ] Compilation Instructions: Provide a clear, step-by-step guide on how to compile the
 code to produce the application. Include any dependencies or special settings
