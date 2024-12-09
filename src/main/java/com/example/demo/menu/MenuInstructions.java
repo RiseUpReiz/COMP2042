@@ -122,14 +122,4 @@ public class MenuInstructions extends LevelParent {
     @Override
     protected void spawnEnemyUnits() {
     }
-
-    /**
-     * Disables firing in the instructions screen.
-     *
-     * @return false to indicate that firing is not allowed
-     */
-    @Override
-    public boolean allowFiring() {
-        return false;
-    }
 }

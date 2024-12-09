@@ -69,6 +69,7 @@ public abstract class LevelParent extends Observable {
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
 
+
         this.background = new ImageView(new Image(getClass().getResource(backgroundImageName).toExternalForm()));
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
@@ -354,6 +355,7 @@ public abstract class LevelParent extends Observable {
         MenuGameOver gameOverMenu = new MenuGameOver(stage, highScoreManager);
         gameOverMenu.show();
     }
+
 
     /**
      * Gets the user plane.

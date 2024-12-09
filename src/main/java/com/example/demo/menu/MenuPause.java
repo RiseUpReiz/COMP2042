@@ -15,7 +15,6 @@ import java.util.Objects;
 public class MenuPause extends StackPane {
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/pauseGame.png";
-
     /**
      * Constructs a PauseMenu instance.
      * Initializes the pause menu with a translucent overlay and a pause image.

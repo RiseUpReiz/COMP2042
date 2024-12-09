@@ -17,7 +17,7 @@ public class UserPlane extends FighterPlane {
     private static final int VERTICAL_VELOCITY = 10; // initial rate 8
     private static final int PROJECTILE_X_POSITION = 110;
     private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
-    public int velocityMultiplier;
+    private int velocityMultiplier;
     private int numberOfKills;
 
     /**
@@ -27,8 +27,6 @@ public class UserPlane extends FighterPlane {
      */
     public UserPlane(int initialHealth) {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
-        setLayoutX(INITIAL_X_POSITION);
-        setLayoutY(INITIAL_Y_POSITION);
         velocityMultiplier = 0;
     }
 
@@ -41,15 +39,11 @@ public class UserPlane extends FighterPlane {
             double initialTranslateY = getTranslateY();
             this.moveVertically(VERTICAL_VELOCITY * velocityMultiplier);
             double newPosition = getLayoutY() + getTranslateY();
-            if (newPosition < Y_UPPER_BOUND) {
-                this.setTranslateY(Y_UPPER_BOUND - getLayoutY()); // Snap to upper bound
-            } else if (newPosition > Y_LOWER_BOUND) {
-                this.setTranslateY(Y_LOWER_BOUND - getLayoutY()); // Snap to lower bound
+            if (newPosition < Y_UPPER_BOUND || newPosition > Y_LOWER_BOUND) {
+                this.setTranslateY(initialTranslateY);
             }
         }
     }
-
-
 
     /**
      * Updates the actor by updating its position.
@@ -66,8 +60,7 @@ public class UserPlane extends FighterPlane {
      */
     @Override
     public ActiveActorDestructible fireProjectile() {
-        double projectileY = getLayoutY() + getTranslateY() + PROJECTILE_Y_POSITION_OFFSET;
-        return new UserProjectile(PROJECTILE_X_POSITION, projectileY);
+        return new UserProjectile(PROJECTILE_X_POSITION, getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
     }
 
     /**
@@ -75,7 +68,7 @@ public class UserPlane extends FighterPlane {
      *
      * @return true if the plane is moving, false otherwise
      */
-    public boolean isMoving() {
+    private boolean isMoving() {
         return velocityMultiplier != 0;
     }
 
@@ -98,10 +91,6 @@ public class UserPlane extends FighterPlane {
      */
     public void stop() {
         velocityMultiplier = 0;
-    }
-
-    public int getVelocityMultiplier() {
-        return velocityMultiplier;
     }
 
     /**

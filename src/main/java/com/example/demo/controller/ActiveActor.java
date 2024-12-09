@@ -9,7 +9,7 @@ import javafx.scene.image.*;
  */
 public abstract class ActiveActor extends ImageView {
 
-    // The location of all the image files
+    // The location of the image files.
     private static final String IMAGE_LOCATION = "/com/example/demo/images/";
 
     /**
@@ -22,15 +22,15 @@ public abstract class ActiveActor extends ImageView {
      * @param initialYPos the initial Y position of the actor
      */
     public ActiveActor(String imageName, int imageHeight, double initialXPos, double initialYPos) {
-        // Set the image of the actor using the specified image name
+        // Set the image of the actor using the specified image name.
         this.setImage(new Image(getClass().getResource(IMAGE_LOCATION + imageName).toExternalForm()));
-        // Set the initial X position of the actor
+        // Set the initial X position of the actor.
         this.setLayoutX(initialXPos);
-        // Set the initial Y position of the actor
+        // Set the initial Y position of the actor.
         this.setLayoutY(initialYPos);
-        // Set the height of the actor
+        // Set the height of the actor image.
         this.setFitHeight(imageHeight);
-        // Preserve the aspect ratio of the actor
+        // Preserve the aspect ratio of the actor image.
         this.setPreserveRatio(true);
     }
 
