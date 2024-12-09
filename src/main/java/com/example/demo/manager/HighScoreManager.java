@@ -19,7 +19,7 @@ public class HighScoreManager {
      * Constructs a HighScoreManager and initializes the high score from the file.
      */
     public HighScoreManager() {
-        this.highScore = readHighScoreFromFile();
+        this.highScore = readHighScoreFromFile(); // Read high score from text file
     }
 
     /**
