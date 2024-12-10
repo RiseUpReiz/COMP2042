@@ -68,7 +68,7 @@ public class UserPlane extends FighterPlane {
      *
      * @return true if the plane is moving, false otherwise
      */
-    private boolean isMoving() {
+    public boolean isMoving() {
         return velocityMultiplier != 0;
     }
 
@@ -107,5 +107,9 @@ public class UserPlane extends FighterPlane {
      */
     public void incrementKillCount() {
         numberOfKills++;
+    }
+
+    public double getVelocityMultiplier() {
+        return velocityMultiplier;
     }
 }

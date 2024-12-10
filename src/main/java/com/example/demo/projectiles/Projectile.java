@@ -8,7 +8,7 @@ import com.example.demo.controller.Main;
  * It extends the ActiveActorDestructible class and provides common functionality
  * for all projectiles, such as taking damage and updating the actor's state.
  */
-public abstract class Projectile extends ActiveActorDestructible {
+public abstract class   Projectile extends ActiveActorDestructible {
 
     /**
      * Constructs a new Projectile with the specified image name, image height,
@@ -49,6 +49,7 @@ public abstract class Projectile extends ActiveActorDestructible {
      * @return true if the projectile is out of the screen, false otherwise
      */
     public boolean outOfScreen() {
-        return getTranslateX() > Main.getScreenWidth();
+        return getTranslateX() >= Main.getScreenWidth();
     }
+
 }
