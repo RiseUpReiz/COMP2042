@@ -15,11 +15,11 @@ public class Boss extends FighterPlane {
  private static final double INITIAL_X_POSITION = 1000.0;
  private static final double INITIAL_Y_POSITION = 400;
  private static final double PROJECTILE_Y_POSITION_OFFSET = 40.0;
- private static final double BOSS_FIRE_RATE = .01; //intial rate .04
- private static final double BOSS_SHIELD_PROBABILITY = .002; //intial prob .002
+ private static final double BOSS_FIRE_RATE = .03;
+ private static final double BOSS_SHIELD_PROBABILITY = .002;
  private static final int IMAGE_HEIGHT = 70;
  private static final int VERTICAL_VELOCITY = 8;
- private static final int HEALTH = 5; //intial health 100
+ private static final int HEALTH = 10;
  private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
  private static final int ZERO = 0;
  private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
@@ -107,7 +107,7 @@ public class Boss extends FighterPlane {
  /**
   * Updates the shield status of the boss.
   */
- private void updateShield() {
+ public void updateShield() {
   if (isShielded) {
    framesWithShieldActivated++;
    updateShieldPosition();
@@ -186,7 +186,7 @@ public class Boss extends FighterPlane {
  /**
   * Activates the shield for the boss.
   */
- private void activateShield() {
+ public void activateShield() {
   isShielded = true;
   levelView.showShield();
   updateShieldPosition();
@@ -199,6 +199,10 @@ public class Boss extends FighterPlane {
   isShielded = false;
   framesWithShieldActivated = 0;
   levelView.hideShield();
+ }
+
+ public boolean isShielded() {
+    return isShielded;
  }
 
 }
