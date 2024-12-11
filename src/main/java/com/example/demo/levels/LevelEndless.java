@@ -9,6 +9,7 @@ import com.example.demo.planes.AdvancedPlane;
 import com.example.demo.planes.Boss;
 import com.example.demo.planes.EnemyPlane;
 import javafx.stage.Stage;
+import javafx.animation.AnimationTimer;
 
 /**
  * Represents the endless mode level in the game.
@@ -26,6 +27,8 @@ public class LevelEndless extends LevelParent {
     private final LevelViewEndless levelViewEndless;
     private int elapsedTime;
     private int increasingTotalEnemies;
+    private long startTime;
+    private int secondsElapsed;
 
     /**
      * Constructs an EndlessMode instance.
@@ -41,6 +44,23 @@ public class LevelEndless extends LevelParent {
         this.elapsedTime = 0;
         this.increasingTotalEnemies = INITIAL_TOTAL_ENEMIES;
         this.levelViewEndless = (LevelViewEndless) instantiateLevelView();
+        this.startTime = System.currentTimeMillis();
+        this.secondsElapsed = 0;
+        startTimer();
+    }
+
+    /**
+     * Starts the timer to track real-time seconds elapsed.
+     */
+    private void startTimer() {
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                secondsElapsed = (int) ((System.currentTimeMillis() - startTime) / 1000);
+                levelViewEndless.updateTimer(secondsElapsed);
+            }
+        };
+        timer.start();
     }
 
     /**
@@ -57,7 +77,7 @@ public class LevelEndless extends LevelParent {
     @Override
     protected void checkIfGameOver() {
         if (userIsDestroyed()) {
-            highScoreManager.updateHighScore(getUser().getNumberOfKills());
+            highScoreManager.updateHighScore(secondsElapsed);
             loseGame();
         }
     }
@@ -68,22 +88,20 @@ public class LevelEndless extends LevelParent {
     @Override
     protected void spawnEnemyUnits() {
         elapsedTime++;
-        levelViewEndless.updateTimer(elapsedTime); // Update timer
         updateTotalEnemies();
 
         int currentNumberOfEnemies = getCurrentNumberOfEnemies();
         if (currentNumberOfEnemies < increasingTotalEnemies && elapsedTime % 20 == 0) {
             for (int i = 0; i < increasingTotalEnemies - currentNumberOfEnemies; i++) {
-                    double newEnemyInitialYPosition = Y_UPPER_BOUND + Math.random() * (Y_LOWER_BOUND - Y_UPPER_BOUND);
-                    addEnemyUnit(new EnemyPlane(Main.SCREEN_WIDTH, newEnemyInitialYPosition));
-
+                double newEnemyInitialYPosition = Y_UPPER_BOUND + Math.random() * (Y_LOWER_BOUND - Y_UPPER_BOUND);
+                addEnemyUnit(new EnemyPlane(Main.SCREEN_WIDTH, newEnemyInitialYPosition));
             }
         }
 
         if (currentNumberOfEnemies < increasingTotalEnemies && elapsedTime % 60 == 0) {
             for (int i = 0; i < increasingTotalEnemies - currentNumberOfEnemies; i++) {
-                    double newEnemyInitialYPosition = Y_UPPER_BOUND + Math.random() * (Y_LOWER_BOUND - Y_UPPER_BOUND);
-                    addEnemyUnit(new AdvancedPlane(Main.SCREEN_WIDTH, newEnemyInitialYPosition));
+                double newEnemyInitialYPosition = Y_UPPER_BOUND + Math.random() * (Y_LOWER_BOUND - Y_UPPER_BOUND);
+                addEnemyUnit(new AdvancedPlane(Main.SCREEN_WIDTH, newEnemyInitialYPosition));
             }
         }
 
@@ -122,6 +140,6 @@ public class LevelEndless extends LevelParent {
         MusicManager.getInstance().stopBackgroundMusic();
 
         MenuGameOver gameOverMenu = new MenuGameOver(stage, highScoreManager);
-        gameOverMenu.endlessShow(getUser().getNumberOfKills());
+        gameOverMenu.endlessShow(secondsElapsed);
     }
 }
