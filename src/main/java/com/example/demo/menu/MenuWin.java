@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -73,6 +75,13 @@ public class MenuWin {
 
         // Create and set the scene
         Scene winScene = new Scene(layout, stage.getWidth(), stage.getHeight());
+
+        // Disable spacebar key press
+        winScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.SPACE) {
+                event.consume();
+            }
+        });
 
         stage.setScene(winScene);
         stage.show();
